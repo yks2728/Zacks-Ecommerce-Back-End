@@ -1,0 +1,32 @@
+{
+  "name": "zacks-ecommerce-back-end",
+  "version": "1.0.0",
+  "description": "## This is my back end for an ecommerce website. I hope you like it",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "seed": "node seeds/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yks2728/Zacks-Ecommerce-Back-End.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yks2728/Zacks-Ecommerce-Back-End/issues"
+  },
+  "homepage": "https://github.com/yks2728/Zacks-Ecommerce-Back-End#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
