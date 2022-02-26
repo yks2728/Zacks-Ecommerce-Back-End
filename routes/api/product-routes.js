@@ -1,18 +1,55 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
-
+const sequelize = require('../../config/connection');
 // The `/api/products` endpoint
 
 // get all products
 router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+  Product.findAll()
+    .then((dbProductData) => res.json(dbProductData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // get one product
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  Product.findOne({
+    where: {
+      id: req.params.id,
+    },
+    attributes: [
+      "id",
+      "product_name",
+      "price",
+      "stock",
+      "category_id",
+      "tag_id",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM tag WHERE product.id = tag.product_id)"
+        ),
+        "total amount of products",
+      ],
+    ],
+    include: [
+      {
+        model: Category, Tag,
+        attributes: ["category_id", "tag_id"],
+      },
+    ],
+  })
+  .then((dbProductData) => {
+    if (!dbProductData) {
+      res.status(404).json({ message: "No product found with this id "});
+    }
+    res.json(dbProductData);
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 // create new product
