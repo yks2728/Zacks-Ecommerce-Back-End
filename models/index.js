@@ -5,7 +5,8 @@ const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
 
 Product.hasOne(Category, {
-  foreignKey: "category_id"
+  foreignKey: "category_id",
+  onDelete: "CASCADE"
 });
 
 // Categories have many Products
