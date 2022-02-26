@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
+const sequelize = require('../../config/connection');
 
 // The `/api/categories` endpoint
 
@@ -24,7 +25,7 @@ router.get('/:id', (req, res) => {
         sequelize.literal(
           "(SELECT COUNT(*) FROM product WHERE category.id = product.category_id)"
         ),
-        "category_name",
+        "total products",
       ],
     ],
     include: [
@@ -49,7 +50,6 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   Category.create({
-    id: req.body.id,
     category_name: req.body.category_name,
   })
     .then((dbCategoryData) => res.json (dbCategoryData))
