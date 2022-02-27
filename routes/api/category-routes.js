@@ -91,7 +91,7 @@ router.delete('/:id', (req, res) => {
   })
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res.status(404).json({ mesaage: "no post found with this id "});
+        res.status(404).json({ mesaage: "no post found with this id" });
         return;
       }
       res.json(dbCategoryData);
